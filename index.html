@@ -35,7 +35,7 @@
     --rule:#243130; --rule-2:#33433F;
     --grid:rgba(95,211,190,.06);
     --shadow:0 1px 2px rgba(0,0,0,.5),0 14px 34px -22px rgba(0,0,0,.9);
-      --cta-ground:#16283E; --cta-ink:#E9EDF1; --cta-ink-2:rgba(8,17,15,.74);
+      --cta-ground:#16283E; --cta-ink:#E9EDF1; --cta-ink-2:rgba(233,237,241,.74);
     --cta-btn-bg:#3FC7BB; --cta-btn-ink:#0A2320; --cta-btn-line:rgba(233,237,241,.5);
   }
 }
@@ -47,7 +47,7 @@
   --rule:#243130; --rule-2:#33433F;
   --grid:rgba(95,211,190,.06);
   --shadow:0 1px 2px rgba(0,0,0,.5),0 14px 34px -22px rgba(0,0,0,.9);
-  --cta-ground:#16283E; --cta-ink:#E9EDF1; --cta-ink-2:rgba(8,17,15,.74);
+  --cta-ground:#16283E; --cta-ink:#E9EDF1; --cta-ink-2:rgba(233,237,241,.74);
   --cta-btn-bg:#3FC7BB; --cta-btn-ink:#0A2320; --cta-btn-line:rgba(233,237,241,.5);
 }
 
@@ -61,6 +61,7 @@ body{
 .wrap{max-width:880px; margin:0 auto; padding:0 22px}
 ::selection{background:var(--petrol-soft); color:var(--ink)}
 :focus-visible{outline:2.5px solid var(--petrol); outline-offset:3px; border-radius:3px}
+html{scroll-padding-top:78px}
 
 h1,h2,h3,.disp{font-family:"Familjen Grotesk","Helvetica Neue",Arial,sans-serif; font-weight:600; letter-spacing:-.022em; text-wrap:balance}
 .mono,code{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace; font-variant-numeric:tabular-nums}
@@ -68,7 +69,7 @@ p{margin:0 0 18px; max-width:63ch}
 a{color:var(--petrol-text); text-underline-offset:3px}
 
 /* ---------- nav ---------- */
-nav.top{border-bottom:1px solid var(--rule); background:var(--paper)}
+nav.top{border-bottom:1px solid var(--rule); background:var(--paper); position:sticky; top:0; z-index:100}
 nav.top .wrap{display:flex; align-items:center; justify-content:space-between; gap:16px; padding-top:16px; padding-bottom:16px}
 .brand{display:inline-flex; align-items:center; line-height:0}
 .brand img{height:27px; width:auto; display:block}
@@ -192,6 +193,22 @@ td.free{color:var(--petrol)}
 td.name{font-family:"Familjen Grotesk",sans-serif; font-weight:600; white-space:nowrap}
 td.when{font-family:"IBM Plex Mono",monospace; font-size:13.5px; color:var(--muted); white-space:nowrap}
 .tnote{font-size:14.5px; color:var(--muted); margin:14px 0 0}
+@media(max-width:640px){
+  .tablewrap{overflow-x:visible; border:none; background:transparent; box-shadow:none}
+  table{display:block; min-width:0; width:100%}
+  thead{display:none}
+  tbody{display:block}
+  tr{display:block; background:var(--card); border:1px solid var(--rule-2); border-radius:3px; margin-bottom:14px; box-shadow:var(--shadow)}
+  tr:last-child{margin-bottom:0}
+  th,td{display:block; width:auto; border-bottom:none; padding:6px 18px; white-space:normal}
+  td.name{font-size:17px; padding-top:16px; padding-bottom:6px}
+  td.price,td.when{display:inline-block; vertical-align:top; margin-right:24px; padding-bottom:16px}
+  td.price:last-child,td.when:last-child{padding-bottom:16px}
+  td[data-th]::before{
+    content:attr(data-th); display:block; font-family:"IBM Plex Mono",monospace; font-size:10.5px;
+    letter-spacing:.1em; text-transform:uppercase; color:var(--muted); margin-bottom:3px;
+  }
+}
 
 /* ---------- process ---------- */
 ol.days{list-style:none; margin:10px 0 0; padding:0; display:flex; flex-direction:column; gap:0; counter-reset:d}
@@ -370,38 +387,38 @@ footer .fine{border-top:1px solid var(--rule); padding-top:18px; max-width:70ch}
           <tr>
             <td class="name">Teardown</td>
             <td>I rebuild one page of your site so you can see the difference instead of taking my word for it. Yours either way.</td>
-            <td class="price free">Free</td>
-            <td class="when">1 day</td>
+            <td class="price free" data-th="Price">Free</td>
+            <td class="when" data-th="How long">1 day</td>
           </tr>
           <tr>
             <td class="name">Paid audit</td>
             <td>A written diagnosis of one bottleneck: what leaks, what it costs, exactly what to do — whether or not you hire me. Comes off the price if you do.</td>
-            <td class="price">R950</td>
-            <td class="when">3 days</td>
+            <td class="price" data-th="Price">R950</td>
+            <td class="when" data-th="How long">3 days</td>
           </tr>
           <tr>
             <td class="name">One leak fixed</td>
             <td>Your single worst step, automated. Usually enquiry capture: everything lands in one place, gets an answer in 30 seconds, and nothing goes quiet on a Saturday.</td>
-            <td class="price">R4 900</td>
-            <td class="when">4 days</td>
+            <td class="price" data-th="Price">R4 900</td>
+            <td class="when" data-th="How long">4 days</td>
           </tr>
           <tr>
             <td class="name">Rebuild sprint</td>
             <td>A fast, mobile-first site that gives people an obvious way to give you money. Fixed scope, fixed date.</td>
-            <td class="price">R7 500</td>
-            <td class="when">7 days</td>
+            <td class="price" data-th="Price">R7 500</td>
+            <td class="when" data-th="How long">7 days</td>
           </tr>
           <tr>
             <td class="name">Automation sprint</td>
             <td>Booking, enquiry capture, quote to invoice, reminders, review requests. The right-hand column above, built.</td>
-            <td class="price">R14 500</td>
-            <td class="when">10 days</td>
+            <td class="price" data-th="Price">R14 500</td>
+            <td class="when" data-th="How long">10 days</td>
           </tr>
           <tr>
             <td class="name">Monthly</td>
             <td>A few hours a month of changes and improvements, plus a short report that says what actually happened. Three months, then month to month.</td>
-            <td class="price">R1 450/m</td>
-            <td class="when">ongoing</td>
+            <td class="price" data-th="Price">R1 450/m</td>
+            <td class="when" data-th="How long">ongoing</td>
           </tr>
         </tbody>
       </table>
