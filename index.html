@@ -26,30 +26,6 @@
   --cta-ground:#16283E; --cta-ink:#F3F2ED; --cta-ink-2:rgba(243,242,237,.74);
   --cta-btn-bg:#3FC7BB; --cta-btn-ink:#0A2320; --cta-btn-line:rgba(243,242,237,.5);
 }
-@media (prefers-color-scheme:dark){
-  :root:not([data-theme="light"]){
-    --paper:#0C1211; --card:#131B1A; --card-2:#1A2422;
-    --ink:#EDF0EE; --ink-2:#BDC7C4; --muted:#8B9793;
-    --petrol:#5FD3BE; --petrol-2:#7FE0CD; --petrol-soft:#14302C;
-    --leak:#E4914A; --leak-soft:#33220F;
-    --rule:#243130; --rule-2:#33433F;
-    --grid:rgba(95,211,190,.06);
-    --shadow:0 1px 2px rgba(0,0,0,.5),0 14px 34px -22px rgba(0,0,0,.9);
-      --cta-ground:#16283E; --cta-ink:#E9EDF1; --cta-ink-2:rgba(233,237,241,.74);
-    --cta-btn-bg:#3FC7BB; --cta-btn-ink:#0A2320; --cta-btn-line:rgba(233,237,241,.5);
-  }
-}
-:root[data-theme="dark"]{
-  --paper:#0C1211; --card:#131B1A; --card-2:#1A2422;
-  --ink:#EDF0EE; --ink-2:#BDC7C4; --muted:#8B9793;
-  --petrol:#5FD3BE; --petrol-2:#7FE0CD; --petrol-soft:#14302C;
-  --leak:#E4914A; --leak-soft:#33220F;
-  --rule:#243130; --rule-2:#33433F;
-  --grid:rgba(95,211,190,.06);
-  --shadow:0 1px 2px rgba(0,0,0,.5),0 14px 34px -22px rgba(0,0,0,.9);
-  --cta-ground:#16283E; --cta-ink:#E9EDF1; --cta-ink-2:rgba(233,237,241,.74);
-  --cta-btn-bg:#3FC7BB; --cta-btn-ink:#0A2320; --cta-btn-line:rgba(233,237,241,.5);
-}
 
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
@@ -74,11 +50,6 @@ nav.top .wrap{display:flex; align-items:center; justify-content:space-between; g
 .brand{display:inline-flex; align-items:center; line-height:0}
 .brand img{height:27px; width:auto; display:block}
 .brand .logo-d{display:none}
-@media (prefers-color-scheme:dark){
-  :root:not([data-theme="light"]) .brand .logo-l{display:none}
-  :root:not([data-theme="light"]) .brand .logo-d{display:block}}
-:root[data-theme="dark"] .brand .logo-l{display:none}
-:root[data-theme="dark"] .brand .logo-d{display:block}
 .navlinks{display:flex; gap:20px; align-items:center; font-family:"IBM Plex Mono",monospace; font-size:12.5px; letter-spacing:.02em}
 .navlinks a{color:var(--ink-2); text-decoration:none}
 .navlinks a:hover{color:var(--petrol-text)}
