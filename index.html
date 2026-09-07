@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Zyly — the jobs you never knew you lost | AI Revenue Recovery</title>
-<meta name="description" content="Zyly is AI-powered revenue recovery for South African businesses — starting with med spas and aesthetic clinics. Fixed price, fixed date, Pretoria. Work out what your unanswered enquiries are costing you, then get a page of your site rebuilt free.">
+<meta name="description" content="Zyly is AI-powered revenue recovery for businesses that depend on enquiries and bookings. Based in South Africa and working worldwide, starting with med spas and aesthetic clinics.">
 <meta name="theme-color" content="#12928C">
 <link rel="canonical" href="https://zyly.app/">
 <meta property="og:title" content="Zyly — the jobs you never knew you lost | AI Revenue Recovery">
@@ -226,7 +226,7 @@ ol.days li>p{grid-column:2; margin:0; font-size:15.5px; color:var(--ink-2)}
 .honest h2{font-size:clamp(23px,3.4vw,30px)}
 .wont{list-style:none; margin:6px 0 20px; padding:0; display:flex; flex-direction:column; gap:10px}
 .wont li{display:grid; grid-template-columns:22px 1fr; gap:10px; font-size:16px; color:var(--ink-2); max-width:62ch}
-.wont li span{color:var(--leak); font-family:"IBM Plex Mono",monospace; font-size:15px; line-height:1.5}
+.wont li span{color:var(--petrol-text); font-family:"IBM Plex Mono",monospace; font-size:15px; line-height:1.5}
 
 /* ---------- final cta ---------- */
 .cta{background:var(--cta-ground); border:none}
@@ -252,6 +252,24 @@ footer .fine{border-top:1px solid var(--rule); padding-top:18px; max-width:70ch}
   .reveal,.reveal.in{opacity:1; transform:none; transition:none}
   .btn:hover{transform:none}
 }
+
+/* ---------- currency selector ---------- */
+/* Real <select> kept for full option text + native/mobile picker behaviour;
+   it's sized to and laid over a compact label so the closed state stays
+   short ("Currency: ZAR ▾") while the open dropdown still lists the
+   full country names. */
+.ccy{position:relative; display:inline-flex; align-items:center}
+.ccy-label{
+  font-family:"IBM Plex Mono",monospace; font-size:11.5px; letter-spacing:.11em;
+  color:var(--ink-2); white-space:nowrap; pointer-events:none; border-radius:3px;
+}
+.ccy select{
+  position:absolute; inset:0; width:100%; height:100%;
+  appearance:none; -webkit-appearance:none; border:0; background:transparent;
+  padding:0; margin:0; opacity:0; cursor:pointer;
+}
+.ccy select:focus-visible + .ccy-label{outline:2.5px solid var(--petrol); outline-offset:2px}
+.fieldnote{font-size:12.5px; color:var(--muted); margin:-3px 0 9px; max-width:none}
 </style>
 </head>
 <body>
@@ -269,13 +287,23 @@ footer .fine{border-top:1px solid var(--rule); padding-top:18px; max-width:70ch}
 
 <header class="hero">
   <div class="wrap">
-    <p class="kicker">Pretoria · AI Revenue Recovery</p>
+    <p class="kicker">South Africa · AI Revenue Recovery</p>
     <h1>Every enquiry you never answered is a job someone else did.</h1>
     <p class="lede">You already paid to get these enquiries — ads, referrals, foot traffic, your reputation. Move the sliders. That is roughly what's leaking out the other end every month, before anyone has even looked at your website.</p>
 
     <div class="calc" id="calc">
       <div class="calc-head">
         <span>The revenue-leak calculator</span>
+        <span class="ccy">
+          <select id="currency" aria-label="Currency">
+            <option value="ZAR">South Africa — ZAR (R)</option>
+            <option value="USD">United States — USD ($)</option>
+            <option value="GBP">United Kingdom — GBP (£)</option>
+            <option value="AUD">Australia — AUD (A$)</option>
+            <option value="CAD">Canada — CAD (C$)</option>
+          </select>
+          <span class="ccy-label" id="ccyLabel" aria-hidden="true">Currency: ZAR ▾</span>
+        </span>
         <span>Rough, and deliberately conservative</span>
       </div>
       <div class="calc-body">
@@ -285,7 +313,8 @@ footer .fine{border-top:1px solid var(--rule); padding-top:18px; max-width:70ch}
             <input type="range" id="enq" min="10" max="400" value="80" step="5" aria-describedby="out">
           </div>
           <div class="field">
-            <label for="miss">Share of enquiries that fall through the cracks — unanswered, unqualified, or without follow-up <span class="val mono" id="missv">25%</span></label>
+            <label for="miss">Share of enquiries that fall through the cracks <span class="val mono" id="missv">25%</span></label>
+            <p class="fieldnote">Includes enquiries that go unanswered, unqualified, or without follow-up.</p>
             <input type="range" id="miss" min="0" max="60" value="25" step="1" aria-describedby="out">
           </div>
           <div class="field">
@@ -294,13 +323,13 @@ footer .fine{border-top:1px solid var(--rule); padding-top:18px; max-width:70ch}
           </div>
           <div class="field">
             <label for="val">What an average job is worth <span class="val mono" id="valv">R1 200</span></label>
-            <input type="range" id="val" min="300" max="5000" value="1200" step="100" aria-describedby="out">
+            <input type="range" id="val" min="300" max="5000" value="1200" step="50" aria-describedby="out">
           </div>
         </div>
         <div class="readout" id="out" role="status" aria-live="polite">
           <span class="lbl">Estimated revenue leakage, per month</span>
           <div class="big" id="rand">R8&#160;400</div>
-          <p class="sm" id="jobs">7 jobs a month you never got to quote for.</p>
+          <p class="sm" id="jobs">≈7 potential jobs a month</p>
           <div class="yr" id="yr">R100&#160;800 a year</div>
         </div>
       </div>
@@ -310,7 +339,7 @@ footer .fine{border-top:1px solid var(--rule); padding-top:18px; max-width:70ch}
     </div>
 
     <div class="btnrow">
-      <a class="btn" href="#teardown">Get a page of your site rebuilt, free</a>
+      <a class="btn" href="#teardown">Find your leaks — get a free page rebuilt</a>
       <a class="btn ghost" href="#prices">See what things cost</a>
     </div>
   </div>
@@ -449,16 +478,22 @@ footer .fine{border-top:1px solid var(--rule); padding-top:18px; max-width:70ch}
   <div class="wrap reveal">
     <div class="honest">
       <p class="sec-kicker">Worth knowing before you call</p>
-      <h2>I am one person, and I take two projects at a time</h2>
-      <p>Zyly is me — Roy. There is no account manager and there is no team of ten. Two builds run at once, and when both slots are full I will tell you the real date rather than take your deposit and let it slip.</p>
-      <p>I also have no portfolio to show you yet. That is exactly why the teardown is free: rather than ask you to trust a page of logos, I will rebuild part of your site first and you can judge the work instead of the pitch.</p>
-      <h3 style="margin-top:26px">What I will not do</h3>
+      <h2>Small by design. Serious about the result.</h2>
+      <p>Zyly is founder-led by Roy Marques.</p>
+      <p>You won't be passed between sales, account managers and a production team. I stay close to the work from the first teardown through to delivery.</p>
+      <p>I deliberately keep the number of projects running at once low. That means a defined scope, a real delivery date and direct access to the person doing the work.</p>
+      <p>Based in South Africa. Working with businesses internationally.</p>
+      <p>Rather than ask you to trust a page of logos, I would rather show you the work.</p>
+      <p>Send me your website and I'll identify one page where enquiries may be leaking through — then rebuild that page for free.</p>
+      <p>You can judge the work before deciding whether you want to work together.</p>
+      <h3 style="margin-top:26px">What you can expect</h3>
       <ul class="wont">
-        <li><span>&times;</span> Sell you a R2 950 template and call it a website.</li>
-        <li><span>&times;</span> Charge a monthly fee for hosting and call it a retainer.</li>
-        <li><span>&times;</span> Promise you a number I cannot control — traffic, rankings, or revenue.</li>
-        <li><span>&times;</span> Disappear for three months and resurface with an invoice.</li>
-        <li><span>&times;</span> Email you twice if you would rather I did not email you at all.</li>
+        <li><span>&check;</span> A defined scope — you know exactly what you're getting.</li>
+        <li><span>&check;</span> A real delivery date — no vague promises or disappearing acts.</li>
+        <li><span>&check;</span> Direct communication — you deal with the person doing the work.</li>
+        <li><span>&check;</span> No invented guarantees — I won't promise rankings, traffic or revenue I can't control.</li>
+        <li><span>&check;</span> A useful first step — the free teardown/rebuild lets you judge the work before deciding.</li>
+        <li><span>&check;</span> No unnecessary retainer — ongoing work is optional, not a condition of getting the project delivered.</li>
       </ul>
     </div>
   </div>
@@ -466,9 +501,11 @@ footer .fine{border-top:1px solid var(--rule); padding-top:18px; max-width:70ch}
 
 <section class="cta" id="teardown">
   <div class="wrap reveal">
-    <p class="sec-kicker">No catch, and nothing to sign</p>
-    <h2>Send me your website. I will rebuild a page of it, free.</h2>
-    <p>One page — usually the one where the money leaks. You get a link you can open on your phone, a before and after with real measurements, and the page itself to keep whether you hire me or not. It takes me an afternoon.</p>
+    <p class="sec-kicker">Start with something useful.</p>
+    <h2>Send me your website. I'll rebuild one page for free.</h2>
+    <p>I'll identify a page where enquiries may be leaking through and rebuild it with the goal of making the path from enquiry → action → booking clearer.</p>
+    <p>You'll get a live link you can open on your phone, plus a before-and-after comparison you can judge for yourself.</p>
+    <p>No obligation to continue.</p>
     <div class="btnrow">
       <a class="btn" href="https://calendar.app.google/7uczSNKJCW5EQUC89">Book 20 minutes</a>
       <a class="btn ghost" href="mailto:roy@zyly.app?subject=Rebuild%20a%20page%20of%20my%20site&amp;body=My%20website%3A%20%0AWhat%20frustrates%20me%20most%3A%20">Email me instead</a>
@@ -484,6 +521,7 @@ footer .fine{border-top:1px solid var(--rule); padding-top:18px; max-width:70ch}
       <div><strong>Where</strong>469 Brummer Avenue<br>Val De Grace, Pretoria, 0184</div>
       <div><strong>Reach me</strong><a href="mailto:roy@zyly.app">roy@zyly.app</a><br><a href="tel:+27671867547">067 186 7547</a></div>
       <div><strong>Serving</strong>Pretoria, Johannesburg,<br>Cape Town, Durban</div>
+      <div><strong>Based</strong>South Africa · working worldwide</div>
     </div>
     <p class="fine">Prices in South African rand and exclude nothing — not VAT registered. The calculator is an estimate built from the numbers you enter, not a promise of what you will save. If you have had an email from me and would rather not, reply "stop" and you will not hear from me again.</p>
   </div>
@@ -494,12 +532,60 @@ footer .fine{border-top:1px solid var(--rule); padding-top:18px; max-width:70ch}
   var ids = ["enq","miss","conv","val"];
   var randEl = document.getElementById("rand"),
       jobsEl = document.getElementById("jobs"),
-      yrEl   = document.getElementById("yr");
+      yrEl   = document.getElementById("yr"),
+      ccyEl  = document.getElementById("currency"),
+      ccyLabelEl = document.getElementById("ccyLabel");
   var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var cur = 0;
 
+  // Currency affects only the symbol/formatting shown for the visitor's own
+  // numbers \u2014 no exchange-rate conversion, the underlying maths is untouched.
+  var CURRENCIES = {
+    ZAR: { symbol: "R",  thousands: "\u00a0" },
+    USD: { symbol: "$",  thousands: "," },
+    GBP: { symbol: "\u00a3", thousands: "," },
+    AUD: { symbol: "A$", thousands: "," },
+    CAD: { symbol: "C$", thousands: "," }
+  };
+
+  // UX starting points for the "average job value" slider per currency \u2014
+  // not averages, statistics or claims, just a sensible dial position the
+  // visitor is expected to move to their own number.
+  var DEFAULTS = { ZAR: 1200, USD: 500, GBP: 400, AUD: 750, CAD: 650 };
+
+  function detectCurrency(){
+    try {
+      var stored = sessionStorage.getItem("zylyCurrency");
+      if (stored && CURRENCIES[stored]) return stored;
+    } catch(e){}
+    try {
+      var langs = navigator.languages || [navigator.language || ""];
+      for (var i = 0; i < langs.length; i++){
+        var region = (langs[i].split("-")[1] || "").toUpperCase();
+        if (region === "ZA") return "ZAR";
+        if (region === "US") return "USD";
+        if (region === "GB") return "GBP";
+        if (region === "AU") return "AUD";
+        if (region === "CA") return "CAD";
+      }
+    } catch(e){}
+    return "ZAR";
+  }
+
+  function setCcyLabel(){
+    if (ccyLabelEl) ccyLabelEl.textContent = "Currency: " + currency + " ▾";
+  }
+
+  var valEl = document.getElementById("val");
+  var valTouched = false;
+  var currency = detectCurrency();
+  if (ccyEl) ccyEl.value = currency;
+  if (DEFAULTS[currency] !== undefined) valEl.value = DEFAULTS[currency];
+  setCcyLabel();
+
   function fmt(n){
-    return "R" + Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g, "\u00a0");
+    var c = CURRENCIES[currency] || CURRENCIES.ZAR;
+    return c.symbol + Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g, c.thousands);
   }
   function read(){
     var o = {};
@@ -517,8 +603,8 @@ footer .fine{border-top:1px solid var(--rule); padding-top:18px; max-width:70ch}
     var month    = lostJobs * v.val;
     var jr       = Math.round(lostJobs);
 
-    jobsEl.textContent = (jr === 1 ? "1 job a month you never got to quote for."
-                                   : jr + " jobs a month you never got to quote for.");
+    jobsEl.textContent = (jr === 1 ? "\u22481 potential job a month"
+                                   : "\u2248" + jr + " potential jobs a month");
     yrEl.textContent   = fmt(month * 12) + " a year";
 
     if (reduce) { randEl.textContent = fmt(month); cur = month; return; }
@@ -535,6 +621,16 @@ footer .fine{border-top:1px solid var(--rule); padding-top:18px; max-width:70ch}
   ids.forEach(function(id){
     document.getElementById(id).addEventListener("input", paint);
   });
+  valEl.addEventListener("input", function(){ valTouched = true; });
+  if (ccyEl){
+    ccyEl.addEventListener("change", function(){
+      currency = ccyEl.value;
+      try { sessionStorage.setItem("zylyCurrency", currency); } catch(e){}
+      setCcyLabel();
+      if (!valTouched && DEFAULTS[currency] !== undefined) valEl.value = DEFAULTS[currency];
+      paint();
+    });
+  }
   paint();
 
   if ("IntersectionObserver" in window && !reduce) {
